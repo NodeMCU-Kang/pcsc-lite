@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>PCSC web</title>
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <!-- Fontawesome CSS -->
+  <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+</head>
+
+<body>
+  <div>
+    <button onclick="clickme()">Click me</button>
+    <p id="id_num">讀卡機未連接</p>
+  </div>
+
+
+  <script>
+
+    var port;
+    const button = document.querySelector('button');
+    const id_num = document.getElementById('id_num');
+
+    clickme();
+
+    async function clickme() {
+      console.log("Click me");
+
+      var res = await fetch("/users");
+      var text = await res.text();
+      console.log("return", text);
+      id_num.innerText = text;
+
+
+    }
+
+    // button.addEventListener('click', async function () {
+
+    //   // Prompt user to select any serial port.
+    //   port = await navigator.serial.requestPort();
+
+    //   console.log("port is requested");
+
+    //   //Wait for the serial port to open.
+    //   await port.open({ baudRate: 115200 });
+
+    //   console.log("port is opened");
+
+    //   decoder = new TextDecoderStream();
+    //   port.readable.pipeTo(decoder.writable)
+    //     .then(() => console.log("bbb"));
+    //   console.log("aaa");
+
+    //   reader = await decoder.readable.getReader();
+
+    // });
+
+    // var label_index = 100;
+    // function serial_read() {
+    //   reader.read().then((result) => {
+    //     //console.log(result.value);
+    //     var hr_arr = result.value.split("\n")
+    //     //console.log(hr_arr);
+    //     //heart_rate.innerHTML=result.value.substr(0,3);
+    //     heart_rate.innerHTML = hr_arr[0];
+
+    //     hr_chart.data.labels.push(label_index++);
+    //     console.log(parseInt(hr_arr[0]));
+    //     //hr_chart.data.datasets[0].data.push(parseInt(hr_arr[0]));
+    //     hr_chart.data.datasets[0].data.push(parseInt(hr_arr[0]));
+    //     hr_chart.data.labels.shift()
+    //     hr_chart.data.datasets[0].data.shift()
+    //     hr_chart.update("none"); // must be "none" to show correctly without animation
+
+    //   });
+    // }
+
+    // function test_serial_read() {
+    //   hr_chart.data.labels.push(label_index++);
+    //   hr_chart.data.datasets[0].data.push(parseInt("50"));
+    //   hr_chart.data.labels.shift();
+    //   hr_chart.data.datasets[0].data.shift();
+    //   setTimeout(test_update, 10);
+    // }
+
+  </script>
+
+
+
+</body>
+
+</html>
