@@ -12,7 +12,8 @@
 <body>
   <div>
     <button onclick="clickme()">Click me</button>
-    <p id="id_num">讀卡機未連接</p>
+    <h1 id="id_num">讀卡機未連接</h1>
+    <h1 id="status"></h1>
   </div>
 
 
@@ -21,8 +22,11 @@
     var port;
     const button = document.querySelector('button');
     const id_num = document.getElementById('id_num');
+    const status = document.getElementById('status');
 
     clickme();
+
+    //setInterval(clickme, 2000);
 
     async function clickme() {
       console.log("Click me");
@@ -31,6 +35,12 @@
       var text = await res.text();
       console.log("return", text);
       id_num.innerText = text;
+
+      if (text == "請插入健保卡") {
+        status.innerText = "";
+      } else {
+        status.innerText = "** 請記得取走您的健保卡";
+      }
 
 
     }

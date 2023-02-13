@@ -4,6 +4,11 @@ var router = express.Router();
 var pcsc = require('pcsclite');
 var iconv = require('iconv-lite');
 
+const { SerialPort, ReadlineParser } = require('serialport')
+//const port = new SerialPort({ path: '/dev/tty.usbserial-8D5226D116', baudRate: 115200 })
+const parser = new ReadlineParser()
+//port.pipe(parser)
+
 //
 function read_pcsc(res) {
   console.log("讀取健保卡");
@@ -50,7 +55,7 @@ function read_pcsc(res) {
             console.log('Data received', data.toString());
             var big5Data = iconv.decode(data, "big5");
 
-            res.send(big5Data.substr(12, 15) + "先生/女士，您好！ 您的身分證字號是：" + big5Data.substr(29, 10));
+            res.send(big5Data.substr(12, 15) + "女士/先生，您好！ 您的身分證字號是：" + big5Data.substr(29, 10));
           }
           return exit();
         });
