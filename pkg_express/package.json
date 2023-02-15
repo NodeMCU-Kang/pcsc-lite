@@ -1,0 +1,30 @@
+{
+  "name": "pkg_express",
+  "bin": "index.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "pkg": {
+    "assets": [
+      "*.html",
+      "*.css",
+      "node_modules/@serialport/binding*/**/*"
+    ],
+    "targets": [
+      "node14-macos-x64"
+    ],
+    "outputPath": "dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "iconv-lite": "^0.6.3",
+    "pcsclite": "^1.0.1",
+    "serialport": "^10.5.0"
+  }
+}

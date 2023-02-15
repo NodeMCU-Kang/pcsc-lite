@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>PCSC Raeder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div>
+    <button onclick="clickme()" style="font-size:20px;">讀 卡</button>
+    <h1 id="id_num">讀卡機未連接</h1>
+    <h1 id="status"></h1>
+  </div>
+
+
+  <script>
+
+    var port;
+
+    const button = document.querySelector('button');
+    const id_num = document.getElementById('id_num');
+    const status = document.getElementById('status');
+
+    const port_select = document.getElementById('serial_port');
+
+    setTimeout(check_ports, 1000);
+
+    // port_select.insertAdjacentHTML('beforeend', '<option>COM1</option>')
+
+    // clickme();
+
+    //setInterval(clickme, 2000);
+
+    async function clickme() {
+      console.log("Click me");
+
+      var res = await fetch("/get_id");
+      var text = await res.text();
+      console.log("return", text);
+      id_num.innerText = text;
+
+      if (text == "請插入健保卡") {
+        status.innerText = "";
+      } else {
+        status.innerText = "** 請記得取走您的健保卡";
+      }
+    }
+
+    async function check_ports() {
+      console.log("Get ports");
+
+      var res = await fetch("/get_ports");
+      var ports = await res.text();
+      console.log(ports);
+
+      if (ports == '0') {
+        alert("沒有偵測到傳送器, 請將傳送器插入 USB 插座, 再重新執行 run.bat");
+        var res = await fetch("/quit");
+        return
+      }
+
+      if (ports != "1") {
+        alert("偵測到多個傳送器, 請只保留一個傳送器, 再重新執行 run.bat");
+        var res = await fetch("/quit");
+        return
+      }
+
+    }
+
+  </script>
+
+
+
+</body>
+
+</html>
